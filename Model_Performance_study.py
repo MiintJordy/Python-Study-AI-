@@ -32,6 +32,9 @@ y_test: 테스트용 레이블 데이터(타겟 데이터)
 test_size : 테스트 데이터의 비율
 random_state : 난수를 제어하는 역할로 
 다른 머신 러닝에 대해 동일성을 부여하는 역할
+random_state에 어떤 값이 있다면 난수 생성에 규칙을 넣어서 동일한 결과를 출력
+1이라는 값을 넣어서 1 3 4 7 번째 데이터를 이용했다면, 
+다시 1을 넣을 때 1 3 4 7 번째 데이터를 사용
 """
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, shuffle=True)
 
