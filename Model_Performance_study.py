@@ -1,6 +1,13 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
+"""
+sklearn 라이브러리에서 제공되는 함수로 학습용과 테스트용을 나눔
+이 함수는 데이터셋을 무작위로 섞고 지정된 비율에 따라 
+학습 데이터와 테스트 데이터로 나눔
+"""
+from sklearn.model_selection import train_test_split
+
 # pandas 데이터 라이브러리
 import pandas as pd
 
@@ -15,6 +22,19 @@ df[60].value_counts()
 
 X = df.iloc[:, 0:60]
 y = df.iloc[:, 60]
+
+# 학습셋과 데이터셋 구분
+"""
+X_train: 학습용 특성 데이터(입력 데이터)
+X_test: 테스트용 특성 데이터(입력 데이터)
+y_train: 학습용 레이블 데이터(타겟 데이터)
+y_test: 테스트용 레이블 데이터(타겟 데이터)
+test_size : 테스트 데이터의 비율
+random_state : 난수를 제어하는 역할로 
+다른 머신 러닝에 대해 동일성을 부여하는 역할
+"""
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, shuffle=True)
+
 
 model = Sequential()
 model.add(Dense(24, input_dim = 60, activation='relu'))
