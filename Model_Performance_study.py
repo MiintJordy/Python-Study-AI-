@@ -59,6 +59,7 @@ history = model.fit(X, y, epochs = 200, batch_size = 10)
 # 21/21 [==============================] - 0s 2ms/step - loss: 0.0176 - accuracy: 0.9952
 # 실제로 판별해내는 확률도 정확도 99.52%일까?
 
+# [loss, accuracy]
 score = model.evaluate(X_test, y_test)
 print('Test accuracy:', score[1])
 # 결과값
@@ -72,6 +73,7 @@ print('Test accuracy:', score[1])
 딥러닝은 학습 단계에서 입력층, 은닉층, 출력층의 노드들에 상당히 많은 변수가 투입됨. 
 딥러닝을 진행하는 동안 과적합에 빠지지 않게 주의해야 함.
 
+# 수정된 내용 (2023.10.20) #
 과적합을 방지하기 위해서 학습을 위한 학습셋과 이를 테스트할 데이터셋을 완전히 구분하고, 
 학습과 동시에 테스트를 병행하면서 진행하는 방법임.
 
