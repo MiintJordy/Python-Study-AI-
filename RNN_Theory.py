@@ -91,6 +91,7 @@ history = model.fit(X_train, y_train, batch_size = 20, epochs = 200, validation_
 
 # evaluate를 사용했을 때는 주로 테스트셋 결과
 print("\n Test Accuracy: %.4f" % (model.evaluate(X_test, y_test)[1]))
+# [1.2054282426834106, 0.7319679260253906]
 print(model.evaluate(X_test, y_test))
 
 # 검증셋과 학습셋의 오차를 저장
