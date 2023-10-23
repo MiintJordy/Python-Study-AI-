@@ -13,16 +13,24 @@ server_socket.listen()
 # client 정보를 담을 리스트
 client_socket_list = []
 
+# 파일 정보 담기
+total_file_size = 0
+file_name = ''
+save_path = ''
+
 
 def read_data(client_msg):
     while True:
         try:
             read_message = client_msg.recv(1024)
-            # 수신한 메시지 전송
-            for client in client_socket_list:
-                client.send(read_message)
+            decode_message = read_message.decode('utf-8')
+            split_message = decode_message.split('/!@#/')
 
-            print(read_message.decode('utf-8'))
+            if split_message[0] == 'msg':
+                # 수신한 메시지 전송
+                for client in client_socket_list:
+                    client.send(split_message[1].encode('utf-8'))
+                print(split_message[1])
 
         except Exception as e:
             print(f"에러 발생: {e}")
