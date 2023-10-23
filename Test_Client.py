@@ -3,7 +3,7 @@ import threading
 
 # 접속할 server 정보
 host = '10.10.21.110'
-port = 25000
+port = 30000
 
 
 # client 소켓 생성
@@ -25,8 +25,9 @@ def receive_msg():
         try:
             message = client_socket.recv(1024)
             print(message.decode('utf-8'))
-        except:
-            print("서버 연결 종료")
+
+        except Exception as e:
+            print("서버 연결 종료: {e}")
             client_socket.close()
             break
 
