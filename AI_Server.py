@@ -13,30 +13,39 @@ server_socket.listen()
 # client 정보를 담을 리스트
 client_socket_list = []
 
-# 파일 정보 담기
-total_file_size = 0
-file_name = ''
-save_path = ''
 
-
-def read_data(client_msg):
+def read_data(client_file):
     while True:
         try:
-            read_message = client_msg.recv(1024)
-            decode_message = read_message.decode('utf-8')
-            split_message = decode_message.split('/!@#/')
+            # 파일 이름
+            file_name = client_file.recv(1024).decode('utf-8')
+            # 파일 저장 경로
+            file_path = "C:\\Users\\lms110\\Downloads\\project\\receive\\"
+            # 저장할 파일 경로 + 파일 이름
+            file_info = file_path + file_name
 
-            if split_message[0] == 'msg':
-                # 수신한 메시지 전송
-                for client in client_socket_list:
-                    client.send(split_message[1].encode('utf-8'))
-                print(split_message[1])
+            # 파일 크기
+            file_size = int(client_file.recv(1024).decode('utf-8'))
+            print(f"파일 이름: {file_name},  파일 크기: {file_size} bytes")
+
+            # 데이터 파일 저장
+            with open(file_info, 'wb') as file:
+                while file_size > 0:
+                    data = client_file.recv(1024)
+                    if not data:
+                        print("데이터 없음")
+                        break
+                    file.write(data)
+                    file_size -= len(data)
+                    print(file_size)
+
+                print(f"{file_name} 파일 수신 완료")
 
         except Exception as e:
             print(f"에러 발생: {e}")
             break
-    client_socket.close()
-    client_socket_list.remove(client_socket)
+    client_file.close()
+    client_socket_list.remove(client_file)
 
 
 def send_msg():
